@@ -1,6 +1,6 @@
 # Salesforce Alexa Skills Kit
 
-Author: Enrico Murru (http://enree.co)
+Author: @enreeco (http://enree.co)
 
 Repository: https://github.com/enreeco/alexa-force
 
@@ -112,6 +112,120 @@ public class AlexaSkillRESTApp {
 
 You can disable the debugging feature that stores in the *RestLog__c* Sobject the request/response couple for every request (makes debugging easier).
 
+## Library usage
+
+#### Create an Intent
+
+Extend the *AlexaIntent* class to handle your intent:
+
+```java
+public class MyEchoIntent extends AlexaIntent{
+	public AlexaForceHelpIntent(){
+        super('EchoIntent');
+		List<AlexaIntent.Slot> slots = new List<AlexaIntent.Slot>();
+		slots.add(new AlexaIntent.Slot('name','AMAZON.LITERAL'));
+        List<String> utterances = new List<String>();
+        utterances.add('My name is {name}'); 
+        this.setSlots(slots);
+        this.setUtterances(utterances);
+    }
+    
+    public override ASkillResponse execute(ASkillRequest req){
+    	Stirng slotName = req.getSlot('name');
+        String responseText = 'Your name is '+slotName;
+        return this.say(responseText, null, null, null, true);
+    }
+}
+```
+
+Use the intent's constructor to define the intent's name, schema and utterances (this will be output when describing the skill).
+
+The `say(String text, String cardTitle, String cardContent, String reprompt, Boolean shouldEndSession)` method allow to create a valid response on the fly.
+
+#### Create a Skill
+
+Create a new instance of the *AlexaSkill* class:
+
+```java
+AlexaSkill skill = new AlexaSkill();
+skill.setApplicationId('amzn1.echo-sdk-ams.app.APP_ID');
+skill.addIntent(new MyEchoIntent());
+skill.addDefaultIntent(new MyEchoIntent());
+skill.addOnLaunchIntent(new MyEchoIntent());
+return skill;
+```
+ A skill can have:
+
+ * As manu intents as you want (`addIntent()`)
+ * A default intent (`addDefaultIntent()`, this is used as a **precaution** to handle unimplemented intents)
+ * An **on launch** intent (`addOnLaunchIntent()`, this is used when you activate a skill without saying any utterance; e.g. **Alexa ask myskill**)
+
+#### Create the REST service
+
+Use the *AlexaSkillRESTApp* to handle most of the service logic:
+
+```java
+@RestResource(urlMapping='/AlexaRestTest/*')
+global class AlexaRestTest {
+	@HttpGet
+    global static void get(){
+        AlexaSkillRESTApp.handleGet(createAlexaSkill());
+    }
+	@HttpPost
+    global static void post(){
+        AlexaSkillRESTApp.handlePost(createAlexaSkill());
+    }
+    
+    //Creates a new Skill
+    private static AlexaSkill createAlexaSkill(){
+        AlexaSkill skill = new AlexaSkill();
+		skill.setApplicationId('amzn1.echo-sdk-ams.app.APP_ID');
+		skill.addIntent(new MyEchoIntent());
+		skill.addDefaultIntent(new MyEchoIntent());
+		skill.addOnLaunchIntent(new MyEchoIntent());
+		return skill;
+        return skill;
+    }
+
+}
+```
+
+The *GET* method will give you the skill's schema and utterances list to help you configure the skill on Amazon's site.
+
+E.g.
+	GET https://[community-domain]/services/apexrest/AlexaRestTest?schema=utterances
+
+```
+MyEchoIntent my name is {name}
+```
+
+E.g.
+	GET https://[community-domain]/services/apexrest/AlexaRestTest
+
+```
+{
+  "intents" : [ {
+    "slots" : [ {
+      "type" : "AMAZON.LITERAL",
+      "name" : "name"
+    } ],
+    "intent" : "MyEchoIntent"
+  } ]
+}
+```
+
+The *POST* method will decide which intent execute.
+
+
+## Examples
+
+Refer to the *AlexaRestTest* class for a complete REST webservice example.
+
+To complete the account linking configuration use the *AlexaOAuthStarter* page as main login page.
+
+## Guide
+
+Refer to the tutorial at http://developer.salesforce.com/blogs/developer-relations/2015/10/salesforce-ale…ith-salesforce.html
 
 ## License
 

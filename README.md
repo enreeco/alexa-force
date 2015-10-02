@@ -225,7 +225,7 @@ To complete the account linking configuration use the *AlexaOAuthStarter* page a
 
 ## Guide
 
-Refer to the tutorial at http://developer.salesforce.com/blogs/developer-relations/2015/10/salesforce-ale…ith-salesforce.html
+Refer to the tutorial at http://developer.salesforce.com/blogs/developer-relations/2015/10/salesforce-alexa-skills-kit-integrate-amazon-echo-with-salesforce.html
 
 ## License
 

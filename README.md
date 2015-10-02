@@ -227,10 +227,6 @@ To complete the account linking configuration use the *AlexaOAuthStarter* page a
 
 No test class available in this version of the library.
 
-## Guide
-
-Refer to the tutorial at http://developer.salesforce.com/blogs/developer-relations/2015/10/salesforce-alexa-skills-kit-integrate-amazon-echo-with-salesforce.html
-
 ## License
 
 The MIT License (MIT)

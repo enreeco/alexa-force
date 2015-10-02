@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>AlexaForceHelpIntent</members>
+        <members>AlexaForceStopIntent</members>
+        <members>AlexaIntent</members>
+        <members>AlexaOAuthStarterController</members>
+        <members>AlexaRestTest</members>
+        <members>AlexaSkill</members>
+        <members>AlexaSkillRESTApp</members>
+        <members>AlexaUserInfoIntent</members>
+        <members>ASkillRequest</members>
+        <members>ASkillResponse</members>
+        <name>ApexClass</name>
+    </types>
+    <types>
+        <members>AlexaOAuthStarter</members>
+        <name>ApexPage</name>
+    </types>
+    <types>
+        <members>RestLog__c</members>
+        <name>CustomObject</name>
+    </types>
+    <version>33.0</version>
+</Package>

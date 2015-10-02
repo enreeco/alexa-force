@@ -223,6 +223,10 @@ Refer to the *AlexaRestTest* class for a complete REST webservice example.
 
 To complete the account linking configuration use the *AlexaOAuthStarter* page as main login page.
 
+#### Test classes
+
+No test class available in this version of the library.
+
 ## Guide
 
 Refer to the tutorial at http://developer.salesforce.com/blogs/developer-relations/2015/10/salesforce-alexa-skills-kit-integrate-amazon-echo-with-salesforce.html

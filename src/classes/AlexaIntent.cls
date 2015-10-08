@@ -124,4 +124,43 @@ public abstract class AlexaIntent{
         resp.response.shouldEndSession = shouldEndSession;
         return resp;
     } 
+    //Helper method to make a response
+    //@text - text of the response
+    //@isSSMLSpeech - outputspeech is in SSML
+    //@cardTitle - title of the card (null for no card)
+    //@cardContent - content of the card (unused if @cardTitle is null)
+    //@reprompt - reprompt text
+    //@isSSMLReprompt - reprompt is in SSML
+    //@shouldEndSession - true if this response ends skill's session
+    public ASkillResponse say(String text, Boolean isSSMLSpeech, String cardTitle, String cardContent, String reprompt, Boolean isSSMLReprompt, Boolean shouldEndSession){
+        ASkillResponse resp = new ASkillResponse();
+        resp.version = '1.0';
+        resp.response = new ASkillResponse.AResponse();
+        resp.response.outputSpeech = new ASkillResponse.AOutputSpeech();
+        resp.response.outputSpeech.type = (isSSMLSpeech==true)?'SSML':'PlainText';
+        if(isSSMLSpeech==true){
+            resp.response.outputSpeech.ssml = text;
+        }else{
+            resp.response.outputSpeech.text = text;
+        }
+        if(String.isNotBlank(cardTitle)){
+	        resp.response.card = new ASkillResponse.ACard();
+    	        resp.response.card.type = 'Simple';
+        	resp.response.card.title = cardTitle;
+	        resp.response.card.content = cardContent;
+        }
+        if(String.isNotBlank(reprompt)){
+            resp.response.reprompt = new ASkillResponse.AReprompt();
+            resp.response.reprompt.outputSpeech = new ASkillResponse.AOutputSpeech();
+            resp.response.reprompt.outputSpeech.type = (isSSMLReprompt==true)?'SSML':'PlainText';
+            resp.response.reprompt.outputSpeech.text = reprompt;
+            if(isSSMLReprompt == true){
+                resp.response.outputSpeech.ssml = reprompt;
+            }else{
+                resp.response.outputSpeech.text = reprompt;
+            }
+        }
+        resp.response.shouldEndSession = shouldEndSession;
+        return resp;
+    } 
 }

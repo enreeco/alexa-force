@@ -27,16 +27,18 @@
 */
 
 global class ASkillResponse {
-    global class AOutputSpeech{
+   global class AOutputSpeech{
         global String type{get;set;}
         global String text{get;set;}
+        global String ssml{get;set;}
         public void serialize(JSONGenerator gen){
             gen.writeStartObject();
             {
                 if(type != null) gen.writeStringField('type', type);
-                if(text != null) gen.writeStringField('text', text);
+                if(text != null && type == 'PlainText') gen.writeStringField('text', text);
+                if(ssml != null && type == 'SSML') gen.writeStringField('ssml', ssml);
             }
-			gen.writeEndObject();
+	    gen.writeEndObject();
         }
     }
     

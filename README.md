@@ -152,7 +152,6 @@ skill.setApplicationId('amzn1.echo-sdk-ams.app.APP_ID');
 skill.addIntent(new MyEchoIntent());
 skill.addDefaultIntent(new MyEchoIntent());
 skill.addOnLaunchIntent(new MyEchoIntent());
-return skill;
 ```
  A skill can have:
 

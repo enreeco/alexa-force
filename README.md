@@ -25,6 +25,7 @@ To enable the functionalities of the provided `AlexaRestTest` skill implementati
 - Create an Alexa Skill configuration on the [Amazon Developer Site](https://developer.amazon.com/public/solutions/devices/echo)
 - The *Redirect URL* of your connected account configuration is **[community-url]**/AlexaOAuthStarter
 
+If you don't need account linking, the *connected app* steps are not necessary (you just need a public endpoint for your REST services).
 
 #### Example Code changes
 
